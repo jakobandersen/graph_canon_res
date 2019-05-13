@@ -1,0 +1,33 @@
+{
+  "name": "graph_canon_res",
+  "version": "1.0.0",
+  "description": "A visualizer for graph canonicalization resuls.",
+  "homepage": "https://github.com/jakobandersen/graph_canon_res",
+  "repository": "github:jakobandersen/graph_canon_res",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress -p --mode production",
+    "build:dev": "webpack --progress -p --mode development",
+    "watch": "webpack --progress --watch --mode development",
+    "start": "webpack-dev-server"
+  },
+  "author": "Jakob Lykke Andersen <jlandersen@imada.sdu.dk> (http://imada.sdu.dk/~jlandersen)",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "d3": "^5.5.0",
+    "d3-symbol-extra": "^0.1.0",
+    "golden-layout": "^1.5.9",
+    "jquery": "^3.3.1",
+    "jquery-ui-bundle": "^1.12.1-migrate",
+    "spectrum-colorpicker": "^1.8.0"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^4.5.2",
+    "css-loader": "^2.1.1",
+    "mini-css-extract-plugin": "^0.6.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.1.5"
+  }
+}
