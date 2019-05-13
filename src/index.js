@@ -71,7 +71,8 @@ class PlotGroup {
       }
       this.resetConfigStyle();
 
-      this.divFigs = this.domParent.append("div");
+      this.divFigs = this.domParent.append("div")
+        .style("padding-bottom", 10);
 
       this.divPlots = this.domParent
         .append("div")
@@ -87,9 +88,11 @@ class PlotGroup {
 
       let divAddBoth = this.divControls.append("div");
       let add = (type, text) => {
-        let div = divAddBoth.append("div");
+        let div = divAddBoth.append("div")
+          .style("padding-bottom", 10);
         div
           .append("label")
+          .style("display", "block")
           .attr("for", "add_" + type)
           .text("Add " + text + " plot:");
         let select = div.append("select")
@@ -324,7 +327,17 @@ class PlotGroup {
 
   redrawConfigs() {
     this.divConfigs.selectAll("*").remove();
-    this.divConfigs.append("label").text("Algorithm Configurations");
+    this.divConfigs.append("label")
+      .style("padding-right", 5)
+      .text("Algorithm Configurations:");
+    this.divConfigs.append("button")
+      .text("Clear")
+      .on("click", () => {
+        let cs = [...this.shownConfigs];
+        for(let c of cs)
+          this.removeConfig(c);
+        this.redrawConfigs();
+      });
     // find which configurations are relevant for the current set of collections
     let configs = new Map();
     for(let [col, plot] of this.cols) {
@@ -711,6 +724,19 @@ window.onclick = event => {
 
 $(document).ready(function() {
   let outer = d3.select("body");
-  let divFigButtons = outer.append("div");
+  outer.append("p")
+    .html(`
+      See <a href="https://github.com/jakobandersen/graph_canon_res">here</a>
+      for the context of what this is.<br />
+      The data is from benchemarks run on a range of graph collections available
+      <a href="http://pallini.di.uniroma1.it/Graphs.html">here</a>.
+      Each run has a runtime and a count of the number of tree nodes in the explored search tree.
+      They can be visualized in separate plots (timing plot and node count plot) aginst the graph size.
+      Use the dropdown lists on the right-hand side to add a plot.
+      If data for a specific algorithm configuration is available for a shown plot,
+      it will be listed on the right-hand side.
+      Note that not all configurations has been run on all graph collections.
+
+      The shortcuts below relates to the figrues in the original paper.`)
   let pg = new PlotGroup(outer);
 });
