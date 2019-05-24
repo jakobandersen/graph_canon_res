@@ -74,13 +74,13 @@ class PlotGroup {
       this.divFigs = this.domParent.append("div")
         .style("padding-bottom", 10);
 
-      this.divPlots = this.domParent
-        .append("div")
+      let divVis = this.domParent.append("div")
+        .style("width", "1600px");
+      this.divPlots = divVis.append("div")
         .style("display", "inline-block")
         .style("width", "1250px")
         .style("vertical-align", "top");
-      this.divControls = this.domParent
-        .append("div")
+      this.divControls = divVis.append("div")
         .style("display", "inline-block")
         .style("width", "350px")
         .style("vertical-align", "top");
