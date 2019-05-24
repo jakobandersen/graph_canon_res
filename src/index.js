@@ -132,26 +132,13 @@ class PlotGroup {
       this.divFigs.append("button")
         .text("Figure 2")
         .on("click", () => {
-          this.clear();
-          this.resetConfigStyleFew();
-          for(let col of ["mz-aug2", "cfi-rigid-d3", "usr", "tnn", "f-lex-reg", "f-lex-srg"])
-            this.addPlot(col, "benchmark", false);
-          for(let config of ["An", "As", "At", "Bliss",
-            "J_bfs-exp_f_basic_pl_t_q",
-            "J_bfs-exp_fl_basic_pl_t_q",
-            "J_bfs-exp_flm_basic_pl_t_q",
-            "J_dfs_f_basic_pl_t_q",
-            "J_dfs_fl_basic_pl_t_q",
-            "J_dfs_flm_basic_pl_t_q"
-          ])
-            this.addConfig(config, false);
-          this.redrawConfigs();
-          this.redrawPlots();
+          this.clickFigure2();
         });
       this.divFigs.append("button")
         .text("Figure 5")
         .on("click", () => {
           this.clear();
+          this.clearConfigs();
           this.resetConfigStyleBasSchr();
           this.addPlot("cmz", "benchmark", false);
           this.addPlot("cmz", "stats", false);
@@ -171,6 +158,7 @@ class PlotGroup {
         .text("CFI Rigid")
         .on("click", () => {
           this.clear();
+          this.clearConfigs();
           this.resetConfigStyleCFIRigid();
           for(let c of ["d3", "z3", "z2", "r2", "s2", "t2"])
             this.addPlot("cfi-rigid-" + c, "benchmark", false);
@@ -188,6 +176,25 @@ class PlotGroup {
     })
   }
 
+  clickFigure2() {
+    this.clear();
+    this.clearConfigs();
+    this.resetConfigStyleFew();
+    for(let col of ["mz-aug2", "cfi-rigid-d3", "usr", "tnn", "f-lex-reg", "f-lex-srg"])
+      this.addPlot(col, "benchmark", false);
+    for(let config of ["An", "As", "At", "Bliss",
+      "J_bfs-exp_f_basic_pl_t_q",
+      "J_bfs-exp_fl_basic_pl_t_q",
+      "J_bfs-exp_flm_basic_pl_t_q",
+      "J_dfs_f_basic_pl_t_q",
+      "J_dfs_fl_basic_pl_t_q",
+      "J_dfs_flm_basic_pl_t_q"
+    ])
+      this.addConfig(config, false);
+    this.redrawConfigs();
+    this.redrawPlots();
+  }
+
   clear() {
     let cols = [...this.cols];
     for(let colPair of cols) {
@@ -195,6 +202,12 @@ class PlotGroup {
       this.removePlot(p.pkg, p.col, p.type);
     }
     this.redrawConfigs();
+  }
+
+  clearConfigs() {
+    let cs = [...this.shownConfigs];
+    for(let c of cs)
+      this.removeConfig(c);
   }
 
   then(f) {
@@ -333,9 +346,7 @@ class PlotGroup {
     this.divConfigs.append("button")
       .text("Clear")
       .on("click", () => {
-        let cs = [...this.shownConfigs];
-        for(let c of cs)
-          this.removeConfig(c);
+        this.clearConfigs();
         this.redrawConfigs();
       });
     // find which configurations are relevant for the current set of collections
