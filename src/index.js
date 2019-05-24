@@ -750,4 +750,5 @@ $(document).ready(function() {
 
       The shortcuts below relates to the figrues in the original paper.`)
   let pg = new PlotGroup(outer);
+  pg.then(() => { pg.clickFigure2(); });
 });
